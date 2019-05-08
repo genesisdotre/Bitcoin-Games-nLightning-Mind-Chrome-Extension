@@ -1,0 +1,27 @@
+{
+  "name": "Getting Started Example",
+  "version": "1.0",
+  "description": "Build an Extension!",
+  "manifest_version": 2,
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+
+  "options_page": "options.html",
+  "page_action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["zepto.min.js", "angular.js", "angular-route.min.js", "myScript.js"],
+      "css": ["styles.css", "reset.css"],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    "iframed.html"
+  ]
+}
