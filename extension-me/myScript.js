@@ -38,7 +38,6 @@ function doThis() {
         <p>You are on a website, known to be fucking distracting.</p>
 
         <form ng-submit="submit()">
-          <iframe src="https://michalstefanow.com"></iframe>
           <iframe id="testing"></iframe>
           <label for="accomplish">What do you want to accomplish</label>
           <input id="accomplish" ng-model="accomplish" placeholder="what..." required>

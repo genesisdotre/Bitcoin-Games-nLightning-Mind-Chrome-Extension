@@ -2,6 +2,10 @@ body {
   display: none;
 }
 
+.ng-hide {
+  display: none;
+}
+
 .overlay {
 	position: fixed;
 	top: 0;
