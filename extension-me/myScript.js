@@ -90,13 +90,11 @@ function doThis() {
         <div ng-show="state === 'toolate'">
           <p>Time overdue: {{ Math.floor(seconds/60) }} minutes {{ seconds % 60 }} seconds</p>
           <button ng-click="done()">done</button>
-          <iframe src="https://giphy.com/embed/11StaZ9Lj74oCY" width="480" height="304" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </div>
       </div>
 
       <div class="overlay" ng-show="state === 'done'">
         <h1>Well done</h1>
-        <iframe src="https://giphy.com/embed/11Feog5PTumNnq" width="480" height="367" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
       </div>
     </script>`
   }
@@ -123,8 +121,8 @@ function doThis() {
   });
 
   app.controller("HomeCtrl", function($scope, countdown) {
-    $scope.minutes = 0;
-    $scope.seconds = 3;
+    $scope.minutes = 1;
+    $scope.seconds = 10;
     $scope.accomplish = "required";
 
     $scope.submit = function() {

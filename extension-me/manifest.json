@@ -17,7 +17,7 @@
     {
       "matches": ["<all_urls>"],
       "js": ["zepto.min.js", "angular.js", "angular-route.min.js", "myScript.js"],
-      "css": ["styles.css", "reset.css"],
+      "css": ["styles.css"],
       "run_at": "document_start"
     }
   ],
