@@ -20,7 +20,7 @@ app.config(function ($routeProvider) {
 app.controller("HomeCtrl", function($scope, countdown) {
   $scope.minutes = 0;
   $scope.seconds = 3;
-  $scope.accomplish;
+  $scope.accomplish = "required";
 
   $scope.submit = function() {
     var seconds = $scope.minutes * 60 + $scope.seconds;

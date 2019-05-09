@@ -29,9 +29,9 @@ function fireContentLoadedEvent () {
 
 // main function (not using sweat words in code)
 function doThis() {
-  $(`
-    <div id="focus-mind"><div ng-view></div>
-
+  let markup; // collapsible body, more screen real estate
+  {     
+    markup = `<div id="focus-mind"><div ng-view></div>
     <script type="text/ng-template" id="partials/home.html">
       <div class='overlay'>
         <h3>I am the overlay</h3>
@@ -70,13 +70,11 @@ function doThis() {
         <div ng-show="state === 'toolate'">
           <p>Time overdue: {{ Math.floor(seconds/60) }} minutes {{ seconds % 60 }} seconds</p>
           <button ng-click="done()">done</button>
-          <iframe src="https://giphy.com/embed/11StaZ9Lj74oCY" width="480" height="304" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
         </div>
       </div>
 
       <div class="overlay" ng-show="state === 'done'">
         <h1>Well done</h1>
-        <iframe src="https://giphy.com/embed/11Feog5PTumNnq" width="480" height="367" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
       </div>
     </script>  
 
@@ -100,12 +98,10 @@ function doThis() {
         <h1>Well done</h1>
         <iframe src="https://giphy.com/embed/11Feog5PTumNnq" width="480" height="367" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
       </div>
-    </script>
+    </script>`
+  }
 
-
-
-    `
-    ).prependTo("body");
+  $(markup).prependTo("body");
 
   var app = angular.module("app", ["ngRoute"]);
 
