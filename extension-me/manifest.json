@@ -16,7 +16,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["zepto.min.js", "angular.js", "angular-route.min.js", "myScript.js"],
+      "js": ["zepto.min.js", "angular.js", "angular-route.js", "myScript.js"],
       "css": ["styles.css"],
       "run_at": "document_start"
     }
