@@ -2,9 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>title</title>
-
-
+    <title>Position:fixed inside a shadow DOM</title>
   </head>
   <body>
 
@@ -15,22 +13,15 @@
 			  template.innerHTML = `
 			    <style>
 			      :host {
-			        display: block;
-			        contain: content;
-			        text-align: center;
-			        background: papayawhip;
-			        max-width: 500px;
-			        margin: 0 auto;
-			        box-shadow: 0 0 10px rgba(128, 100, 38, 0.34);
-			        border-radius: 8px;
-			        border: 2px dashed #ccc049;
+							display: block;
+			        background: red;
 			      }
 			    </style>
 
 			    <div>
-						<slot name="title"></slot>
+						<slot name="top"></slot>
 						<hr>
-						<slot></slot>
+						<slot name="bottom"></slot>
 					</div>
 			  `;
 
@@ -48,31 +39,19 @@
 	</script>
 
 
-	<my-info-box>
-		<span slot="title">🍭 Fancy title</span>
-		<p>I'm going straight to the anonymous slot.</p>
-	</my-info-box>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 
-	<h1>1 content</h1>
-	<h1>2 content</h1>
-	<h1>3 content</h1>
-	<h1>4 content</h1>
-	<h1>5 content</h1>
-	<h1>6 content</h1>
-	<h1>7 content</h1>
-	<h1>8 content</h1>
-	<h1>9 content</h1>
-	<h1>10 content</h1>
-	<h1>11 content</h1>
-	<h1>12 content</h1>
-	<h1>13 content</h1>
-	<h1>14 content</h1>
-	<h1>15 content</h1>
-	<h1>16 content</h1>
-	<h1>17 content</h1>
-	<h1>18 content</h1>
-	<h1>19 content</h1>
-	<h1>20 content</h1>
+	<my-info-box>
+		<span slot="top">TOP</span>
+		<span slot="bottom">
+			<div style="position: fixed; top: 0; left: 0">BOTTOM</div>
+		</span>
+	</my-info-box>
 
   
   </body>
