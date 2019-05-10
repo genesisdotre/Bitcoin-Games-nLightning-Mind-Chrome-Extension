@@ -22,62 +22,71 @@ function doThis() {
 
 
 
-  let traditionalAngularMarkup = 
-    `
-      <div id="angular-app" ng-controller="ctrl">
-        {{ message }}
-      </div>
-    `
-  $(traditionalAngularMarkup).prependTo("body");
+  // let traditionalAngularMarkup = 
+  //   `
+  //     <div id="angular-app" ng-controller="ctrl">
+  //       {{ message }}
+  //     </div>
+  //   `
+  // $(traditionalAngularMarkup).prependTo("body");
 
-  angular.element(function() { // manually bootstrapping
-    angular.bootstrap(document.getElementById('angular-app'), ['app']);
-  });
+  // angular.element(function() { // manually bootstrapping
+  //   angular.bootstrap(document.getElementById('angular-app'), ['app']);
+  // });
 
-  var app = angular.module("app", []);
+  // var app = angular.module("app", []);
 
-  app.controller("ctrl", function($scope) {
-    $scope.message = "Angular from myScript";
-  });
+  // app.controller("ctrl", function($scope) {
+  //   $scope.message = "Angular from myScript";
+  // });
 
 
-  let shadowDomMarkup = 
-  `
-    <my-info-box>
-      <span slot="top">I'm in the shadow DOM injected by extension</span>
-    </my-info-box>
-  `;
+  ////////////////////////////////////////// 
 
-  $(shadowDomMarkup).prependTo("body");
 
-  (function() {
-    const template = document.createElement('template');
+  // let shadowDomMarkup = 
+  // `
+  //   <my-info-box>
+  //     <span slot="top">I'm in the shadow DOM injected by extension</span>
+  //   </my-info-box>
+  // `;
 
-    template.innerHTML = `
-      <style>
-        :host {
-          display: block;
-          background: red;
-          border: 10px dashed black;
-        }
-      </style>
+  // $(shadowDomMarkup).prependTo("body");
 
-      <div>
-        <slot name="top"></slot>
-      </div>
-    `;
+  // (function() {
+  //   const template = document.createElement('template');
 
-    class MyInfoBox extends HTMLElement {
-      constructor() {
-        super();
+  //   template.innerHTML = `
+  //     <style>
+  //       :host {
+  //         display: block;
+  //         background: red;
+  //         border: 10px dashed black;
+  //       }
+  //     </style>
 
-        this.attachShadow({ mode: 'open' });
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
-      }
-    }
+  //     <div>
+  //       <slot name="top"></slot>
+  //     </div>
+  //   `;
 
-    window.customElements.define('my-info-box', MyInfoBox);
-  })();
- 
+  //   class MyInfoBox extends HTMLElement {
+  //     constructor() {
+  //       super();
+
+  //       this.attachShadow({ mode: 'open' });
+  //       this.shadowRoot.appendChild(template.content.cloneNode(true));
+  //     }
+  //   }
+
+  //   window.customElements.define('my-info-box', MyInfoBox);
+    
+  // })();
+
+  https://developer.chrome.com/extensions/extension#method-getURL
+  var path = chrome.runtime.getURL("iframed.html");
+  var iframeMarkup = "<iframe id='iframed' src='" + path + "'></iframe>";
   
+  $(iframeMarkup).prependTo("body");
+
 }

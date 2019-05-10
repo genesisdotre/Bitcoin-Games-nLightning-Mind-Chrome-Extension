@@ -2,6 +2,11 @@ body {
   /* display: none; */
 }
 
+#iframed {
+  position: fixed;
+  top: 0;
+}
+
 #focus-mind-iframe {
   position: fixed;
   top: 0;
