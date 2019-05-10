@@ -1,9 +1,22 @@
 body {
-  display: none;
+  /* display: none; */
+}
+
+#focus-mind-iframe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: pink;
+}
+
+body {
+  margin-top: 100px;
 }
 
 .ng-hide {
-  display: none;
+  display: none; /* some automatic Angular.JS styles are not applied due to iframe / extension / shadow dom thingy */
 }
 
 .overlay {
