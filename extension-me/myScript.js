@@ -222,14 +222,11 @@ function doThis() {
 
   // VANILLA JAVASCRIPT IFRAME IFRAME
 
-  let markupWrapper2 = "<iframe id='simple-iframe'></iframe>"
+  let markupWrapper2 = "<iframe id='simple-iframe'><body></body></iframe>"
   $(markupWrapper2).prependTo("body");
 
   let markup2 = `
     <div id="something"></div>
-    <script>
-      document.getElementById("something").innerHtml = "testing";
-    </script>
   `;
 
   function writeToFrame2() {
@@ -239,5 +236,16 @@ function doThis() {
     doc.close();
   }
   writeToFrame2();
+
+  // var scriptTag = `
+  //   <script>
+  //     document.getElementById('something').innerHTML='xxx xxx xxx ';
+  //     alert(1);
+  //   <\/script>
+  //   `;
+
+  // $("#simple-iframe").contents().find("body").append(scriptTag);
+
+  document.getElementById('something').innerHTML='xxx xxx xxx ';
   
 }
