@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+		<title>Basic slots</title>
+		
+		<style>
+			body {
+				font-family: monospace;
+				font-size: 20px;
+			}
+		</style>
+  </head>
+  <body>
+
+  	<script>
+  		(function() {
+			  const template = document.createElement('template');
+
+			  template.innerHTML = `
+			    <style>
+			      :host {
+							display: block;
+							background: red;
+							border: 10px dashed orange;
+			      }
+			    </style>
+
+			    <div>
+						<slot name="top"></slot>
+					</div>
+			  `;
+
+			  class MyInfoBox extends HTMLElement {
+			    constructor() {
+			      super();
+
+			      this.attachShadow({ mode: 'open' });
+			      this.shadowRoot.appendChild(template.content.cloneNode(true));
+			    }
+			  }
+
+			  window.customElements.define('my-info-box', MyInfoBox);
+			})();
+	</script>
+
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+
+
+	<my-info-box>
+		<span slot="top">XXX</span>
+	</my-info-box>
+
+  
+  </body>
+</html>
