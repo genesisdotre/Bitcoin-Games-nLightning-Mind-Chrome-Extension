@@ -1,11 +1,11 @@
-var areWeDoingThisOrNot = false;
+var areWeDoingThisOrNot = true;
 
-var urls = ["onet.pl", "michalstefanow.com", "localhost"]; // TODO: read from options storage
-urls.forEach(function(url) {
-  if (location.href.indexOf(url) !== -1) { // FIXME: could be any part of URL
-    areWeDoingThisOrNot = true;
-  }
-})
+// var urls = ["onet.pl", "michalstefanow.com", "localhost"]; // TODO: read from options storage
+// urls.forEach(function(url) {
+//   if (location.href.indexOf(url) !== -1) { // FIXME: could be any part of URL
+//     areWeDoingThisOrNot = true;
+//   }
+// })
 
 // https://stackoverflow.com/questions/28186349/chrome-extension-set-to-run-at-document-start-is-running-too-fast
 document.addEventListener('DOMContentLoaded', fireContentLoadedEvent);
@@ -21,36 +21,32 @@ function fireContentLoadedEvent () {
 // main function (not using sweat words in code)
 function doThis() {
 
-  let focusMindarkup = "<iframe id='focus-mind-iframe'></iframe>"
-  $(focusMindarkup).prependTo("body");
-
   let markup; // collapsible body, more screen real estate
   {     
     markup = `
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-route.min.js"></script>
     <div ng-app="app">
       <div ng-view></div>
 
       <script type="text/ng-template" id="partials/home.html">
         <div class='overlay'>
-          <h3>I am the overlay</h3>
+          <h3>{{ message }}</h3>
           <p>You are on a website, known to be fucking distracting.</p>
 
           <form ng-submit="submit()">
-            <iframe id="testing"></iframe>
             <label for="accomplish">What do you want to accomplish</label>
             <input id="accomplish" ng-model="accomplish" placeholder="what..." required>
 
             <br>
 
-
             <label for="howmuchtime">How much time is a sensible estimate</label>
             <input type="number" ng-model="minutes" placeholder="minutes...">
             <input type="number" ng-model="seconds" placeholder="second...">
 
-
             <input type="submit" value="I'm ready">
           </form>
-
 
         </div>
       </script>  
@@ -117,6 +113,7 @@ function doThis() {
       });
     
       app.controller("HomeCtrl", function($scope, countdown) {
+        $scope.message = "iframe Angular works";
         $scope.minutes = 1;
         $scope.seconds = 10;
         $scope.accomplish = "required";
@@ -191,24 +188,56 @@ function doThis() {
     `
   }
 
-
-
-  // angular.element(function() {
-  //   angular.bootstrap(document.getElementById('focus-mind-inside-shadow-dom'), ['app']);
-    
-
-  //   console.log("BOOTSTRAP DONE");
-  // });
-
+  let markupWrapper = "<iframe id='focus-mind-iframe'></iframe>"
+  $(markupWrapper).prependTo("body");
 
   function writeToFrame() {
     var doc = document.getElementById('focus-mind-iframe').contentWindow.document;
     doc.open();
-    // doc.write('<html><head><title></title><style>body{ background: blue }</style></head><body>Hello world.</body></html>');
     doc.write(markup);
     doc.close();
   }
-
   writeToFrame();
+
+  // NOW ATTEMPT TO USE ANGULAR DIRECTLY
+  let traditionalAngularMarkup = 
+    `
+      <div id="angular-app" ng-controller="ctrl">
+        {{ message }}
+      </div>
+    `
+  $(traditionalAngularMarkup).prependTo("body");
+
+  angular.element(function() {
+    angular.bootstrap(document.getElementById('angular-app'), ['app']);
+    
+    console.log("BOOTSTRAP DONE");
+  });
+
+  var app = angular.module("app", []);
+
+  app.controller("ctrl", function($scope) {
+    $scope.message = "Angular from myScript";
+  });
+
+  // VANILLA JAVASCRIPT IFRAME IFRAME
+
+  let markupWrapper2 = "<iframe id='simple-iframe'></iframe>"
+  $(markupWrapper2).prependTo("body");
+
+  let markup2 = `
+    <div id="something"></div>
+    <script>
+      document.getElementById("something").innerHtml = "testing";
+    </script>
+  `;
+
+  function writeToFrame2() {
+    var doc = document.getElementById('simple-iframe').contentWindow.document;
+    doc.open();
+    doc.write(markup2);
+    doc.close();
+  }
+  writeToFrame2();
   
 }
