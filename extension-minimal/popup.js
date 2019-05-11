@@ -19,3 +19,32 @@ changeColor.onclick = function(element) {
         {code: 'document.body.style.backgroundColor = "' + color + '";'});
   });
 };
+
+let websites;
+
+chrome.storage.sync.get('websites', function(data) {
+  if($.isEmptyObject(data)) {
+    websites = [];
+  } else {
+    websites = data.websites;
+  }
+
+  let markup = "";
+  websites.forEach(function(website) {
+    markup += "<div>" + website + "</div>";
+  });
+  $("#websites").html(markup);
+
+});
+
+$("#add").on("submit", function(event) {
+  let val = $("#url").val();
+  console.log(val);
+  websites.push(val);
+
+  chrome.storage.sync.set({ websites: websites }, function() {
+    console.log("storage updated");
+  })
+  event.preventDefault();
+  return false;
+})
