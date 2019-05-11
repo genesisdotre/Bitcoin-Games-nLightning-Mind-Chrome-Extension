@@ -10,3 +10,10 @@ $("#form").on("submit", function(event) {
     event.preventDefault();
     return false;
 });
+
+chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    var tab = tabs[0];
+    var url = new URL(tab.url)
+    var domain = url.hostname
+    $("#thisSite").text(domain);
+})
