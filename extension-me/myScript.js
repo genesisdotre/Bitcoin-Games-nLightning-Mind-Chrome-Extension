@@ -83,7 +83,7 @@ function doThis() {
     
   // })();
 
-  https://developer.chrome.com/extensions/extension#method-getURL
+  // https://developer.chrome.com/extensions/extension#method-getURL
   var path = chrome.runtime.getURL("iframed.html");
   var iframeMarkup = "<iframe id='iframed' src='" + path + "'></iframe>";
   

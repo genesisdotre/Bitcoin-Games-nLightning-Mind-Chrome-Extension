@@ -1,5 +1,5 @@
 {
-  "name": "Getting Started Example",
+  "name": "MODIFIED by me Getting Started Example",
   "version": "1.0",
   "description": "Build an Extension!",
   "permissions": ["activeTab", "declarativeContent", "storage"],
