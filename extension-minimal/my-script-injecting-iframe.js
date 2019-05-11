@@ -6,4 +6,5 @@ function fireContentLoadedEvent () {
     var iframeMarkup = "<iframe id='iframed' src='" + path + "'></iframe>";
     
     $(iframeMarkup).prependTo("body");
+    $("body").show(); // by default is display:none to avoid flashing content
 }

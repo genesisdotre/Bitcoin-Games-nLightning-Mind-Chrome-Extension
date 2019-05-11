@@ -1,13 +1,14 @@
 body {
-  /* display: none; */
+  display: none;
 }
 
 #iframed {
   position: fixed;
-  top: 0;
+  height: 100vh;
+  width: 100vw;
   z-index: 999999999;
 }
-
+/* 
 #focus-mind-iframe {
   position: fixed;
   top: 0;
@@ -69,4 +70,4 @@ body {
 
 .countdown-success {
 	
-}
+} */
