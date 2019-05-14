@@ -39,17 +39,6 @@ body {
   z-index: 9999999999;
 }
 
-
-
-
-body {
-  margin-top: 50px !important;
-}
-
-.ng-hide {
-  display: none; /* some automatic Angular.JS styles are not applied due to iframe / extension / shadow dom thingy */
-}
-
 .overlay {
 	position: fixed;
 	top: 0;

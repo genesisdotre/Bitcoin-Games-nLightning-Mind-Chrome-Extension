@@ -2,23 +2,61 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>chrome expenstion overlay float position:fixed</title>
+		<title>chrome expenstion overlay float position:fixed</title>
+		<link rel="stylesheet" href="normalize.css">
     <style>
     	body {
-    		background: white;
+    		background: pink;
     	}
     	.content {
+				padding: 10px;
     		border: 3px dashed red;
-    	}
+			}
+			h1 {
+				font-weight: normal;
+			}
+			h1 span {
+				font-weight: bold;
+			}
+			input[type=text] {
+				padding: 15px;
+				font-size: 1.8em;
+				width: 300px;
+				max-width: 100%;
+				height: 44px;
+				font-family: monospace;
+			}
+
+
+
+input,textarea{width:100%; display:block; outline: none;} 
+
+.input-container {
+    padding: 25px 25px;
+    background-color: #ccc;
+}
+
+.input-field {
+	padding: 15px;
+	background-color: white;
+	box-sizing: border-box;
+	border:0; 
+}
     </style>
   </head>
   <body>
   	<div class="content">
 			<h1>What do you want to accomplish by visiting <span id="thisSite"></span>?</h1>
 
+			<div class="input-container">
+					<input class="input-field font-regular" placeholder="Text goes here"></input>
+					<textarea class="input-field" placeholder="textarea"></textarea>
+			</div>
+
 			<form id="form">
 				<input type="text" placeholder="something important..." id="task" autofocus>
-				<input type="submit" value="let's go">
+				<br>
+				<input type="submit" value="press enter to start">
 			</form>
 
 		</div>
