@@ -1,0 +1,28 @@
+body {
+    background: pink;
+}
+.initial {
+    padding: 10px;
+    border: 3px dashed red;
+}
+h1 {
+    font-weight: normal;
+}
+h1 span {
+    font-weight: bold;
+}
+input[type=text] {
+    padding: 15px;
+    font-size: 1.8em;
+    height: 44px;
+    font-family: monospace;
+    box-sizing: border-box;
+    width: 100%;
+}
+.input-container {
+    padding: 25px 25px;
+    background-color: #ccc;
+}
+.failed {
+    display: none;
+}

@@ -2,17 +2,25 @@ console.log("I'm included in iframed.html, my name is iframed.js");
 
 let intervalId;
 let timeSeconds;
+const MINUTE = 5; // not 60 as non-DEBUG minute
 
 function timeIsUp() {
     window.top.postMessage('timeIsUp', '*');
     clearInterval(intervalId);
-    $(".initial").hide();
-    $(".failed").show();
+    $(".screen").hide();
+    $(".screen.failed").show();
+}
 
+$("#closeTheTab").on("click", function() {
     chrome.tabs.getCurrent(function(tab) {
         chrome.tabs.remove(tab.id, function() { });
     });
-}
+})
+
+$("#addMinute").on("click", function() {
+    timeSeconds = MINUTE;
+    startCountdown();
+});
 
 function formatTime(input) {
     let minutes = Math.floor(input / 60);
@@ -22,19 +30,13 @@ function formatTime(input) {
 }
 
 $("#form").on("submit", function(event) {
-
     let task = $("#task").val();
-    timeSeconds = parseInt( $("#time-number").val() ) * 5; // DEBUG: minute has 5 seconds only for faster timeouts
+    $("#workingOn").text(task); // copy past from the form into another screen
+
+    timeSeconds = parseInt( $("#time-number").val() ) * MINUTE;
     console.log("Task to accomplish: " + task + " in: " + timeSeconds + " seconds");
 
-
-    intervalId = setInterval(function() {
-        if (timeSeconds === 0) { timeIsUp(); }
-        $("#timeLeft").text(formatTime(timeSeconds));
-        timeSeconds--;
-    }, 1000)
-
-    window.top.postMessage('start', '*');
+    startCountdown();
 
     event.preventDefault();
     return false;
@@ -48,6 +50,23 @@ $("#time-range").on("input", function() {
 $("#time-number").on("input", function() {
     $("#time-range").val( $(this).val() )
 })
+
+
+function startCountdown() {
+    $(".screen").hide();
+    $(".screen.countdown").show();
+
+    function countdown() {
+        if (timeSeconds === 0) {
+            timeIsUp();
+        }
+        $("#timeLeft").text(formatTime(timeSeconds));
+        timeSeconds--;
+    }
+    countdown(); // calling it once immediately and then again in the setInterval
+    intervalId = setInterval(countdown, 1000);
+    window.top.postMessage('start', '*');
+}
 
 
 // THIS DOES NOT WORK

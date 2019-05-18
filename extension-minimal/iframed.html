@@ -4,39 +4,12 @@
     <meta charset="UTF-8">
 		<title>chrome expenstion overlay float position:fixed</title>
 		<link rel="stylesheet" href="normalize.css">
-    <style>
-    	body {
-    		background: pink;
-    	}
-    	.initial {
-				padding: 10px;
-    		border: 3px dashed red;
-			}
-			h1 {
-				font-weight: normal;
-			}
-			h1 span {
-				font-weight: bold;
-			}
-			input[type=text] {
-				padding: 15px;
-				font-size: 1.8em;
-				height: 44px;
-				font-family: monospace;
-				box-sizing: border-box;
-				width: 100%;
-			}
-			.input-container {
-				padding: 25px 25px;
-				background-color: #ccc;
-			}
-			.failed {
-				display: none;
-			}
-    </style>
+		<link rel="stylesheet" href="iframed.css">
+
   </head>
   <body>
-  	<div class="initial">
+
+  	<div class="screen initial">
 			<h1>What do you want to accomplish by visiting <span id="thisSite">DYNAMICALLY_REPLACED</span>?</h1>
 
 			<form id="form">
@@ -50,16 +23,17 @@
 				<input type="submit" value="press enter to start">
 			</form>
 
-			<h3>Time left: <span id="timeLeft">DYNAMIC</span></h3>
-
 		</div>
-		<div class="failed">
+
+		<div class="screen countdown">
+				<h3>Working on: <span id="workingOn">DYNAMIC</span> Time left: <span id="timeLeft">DYNAMIC</span></h3>
+		</div>
+
+		<div class="screen failed">
 			<h1>Time is up</h1>
-
-
+			<button id="addMinute">Add 1 minute</button>
+			<button id="closeTheTab">Close the tab</button>
 		</div>
-
-
 
 		<script src="zepto.min.js"></script>  
 		<script src="iframed.js"></script>  
