@@ -10,6 +10,11 @@ body {
   width: 100vw;
   z-index: 999999999;
 }
+
+#iframed.collapsed {
+  height: 400px;
+}
+
 /* 
 #focus-mind-iframe {
   position: fixed;

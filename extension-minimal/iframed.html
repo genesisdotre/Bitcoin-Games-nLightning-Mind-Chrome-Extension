@@ -8,7 +8,7 @@
     	body {
     		background: pink;
     	}
-    	.content {
+    	.initial {
 				padding: 10px;
     		border: 3px dashed red;
 			}
@@ -21,45 +21,46 @@
 			input[type=text] {
 				padding: 15px;
 				font-size: 1.8em;
-				width: 300px;
-				max-width: 100%;
 				height: 44px;
 				font-family: monospace;
+				box-sizing: border-box;
+				width: 100%;
 			}
-
-
-
-input,textarea{width:100%; display:block; outline: none;} 
-
-.input-container {
-    padding: 25px 25px;
-    background-color: #ccc;
-}
-
-.input-field {
-	padding: 15px;
-	background-color: white;
-	box-sizing: border-box;
-	border:0; 
-}
+			.input-container {
+				padding: 25px 25px;
+				background-color: #ccc;
+			}
+			.failed {
+				display: none;
+			}
     </style>
   </head>
   <body>
-  	<div class="content">
-			<h1>What do you want to accomplish by visiting <span id="thisSite"></span>?</h1>
-
-			<div class="input-container">
-					<input class="input-field font-regular" placeholder="Text goes here"></input>
-					<textarea class="input-field" placeholder="textarea"></textarea>
-			</div>
+  	<div class="initial">
+			<h1>What do you want to accomplish by visiting <span id="thisSite">DYNAMICALLY_REPLACED</span>?</h1>
 
 			<form id="form">
-				<input type="text" placeholder="something important..." id="task" autofocus>
+				<div class="input-container">
+					<input type="text" class="input-field" placeholder="Something important..." id="task" value="Something..." autofocus>
+				</div>
+				<br>
+				<input id="time-range"  type="range" min="0" max="10" step="1">
+				<input id="time-number" type="number" min="0" max="10" step="1"> minutes
 				<br>
 				<input type="submit" value="press enter to start">
 			</form>
 
+			<h3>Time left: <span id="timeLeft">DYNAMIC</span></h3>
+
 		</div>
+		<div class="failed">
+			<h1>Time is up</h1>
+
+
+		</div>
+
+
+
 		<script src="zepto.min.js"></script>  
 		<script src="iframed.js"></script>  
   </body>

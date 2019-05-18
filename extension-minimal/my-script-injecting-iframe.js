@@ -8,3 +8,12 @@ function fireContentLoadedEvent () {
     $(iframeMarkup).prependTo("body");
     $("body").show(); // by default is display:none to avoid flashing content
 }
+
+window.onmessage = function(e){
+    if (e.data == 'start') {
+        document.getElementById("iframed").classList.add("collapsed");
+    }
+    if (e.data == 'timeIsUp') {
+        document.getElementById("iframed").classList.remove("collapsed");
+    }
+};
