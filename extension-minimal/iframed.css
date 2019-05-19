@@ -23,6 +23,6 @@ input[type=text] {
     padding: 25px 25px;
     background-color: #ccc;
 }
-.failed {
+.failed, .countdown {
     display: none;
 }

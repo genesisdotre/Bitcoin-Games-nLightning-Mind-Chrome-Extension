@@ -11,11 +11,13 @@ function timeIsUp() {
     $(".screen.failed").show();
 }
 
+$("#done").on("click", function() {
+    _closeTab();
+});
+
 $("#closeTheTab").on("click", function() {
-    chrome.tabs.getCurrent(function(tab) {
-        chrome.tabs.remove(tab.id, function() { });
-    });
-})
+    _closeTab();
+});
 
 $("#addMinute").on("click", function() {
     timeSeconds = MINUTE;
@@ -68,6 +70,11 @@ function startCountdown() {
     window.top.postMessage('start', '*');
 }
 
+function _closeTab() {
+    chrome.tabs.getCurrent(function(tab) {
+        chrome.tabs.remove(tab.id, function() { });
+    });
+}
 
 // THIS DOES NOT WORK
 // Error handling response: TypeError: Failed to construct 'URL': Invalid URL

@@ -23,27 +23,27 @@ window.onmessage = function(e){
 var promise = new Promise(function(resolve, reject) {
 
     chrome.storage.sync.get('websites', function(data) {
-
         if (data && data.websites) {
-            for (let i=0; i<data.websites.length; i++) {
-                if (data.websites[i].indexOf(location.host) !== -1) {
-                    resolve(true);
-                }
-            }
+            resolve(data.websites);
         }
-        resolve(false);
+        reject(data);
     });
   
 });
 
-promise.then(function(result) {
-    console.log("chrome.storage.sync --- location.href --- displaying YES or NO?");
+promise.then(function(websites) {
+    console.log("chrome.storage.sync --- location.href --- displaying YES or NO?", websites);
 
-    if (result === true) {
-        console.log("INCLUDED")
-    } else {
-        console.log("NOT included")
+    for (let i=0; i<data.websites.length; i++) {
+        if (data.websites[i].indexOf(location.host) !== -1) {
+            console.log("INCLUDED")
+
+            return;
+        }
     }
+
+    console.log("NOT included")
+
   }, function(err) {
-    console.log(err); // Error: "It broke"
+    console.log(err);
   });

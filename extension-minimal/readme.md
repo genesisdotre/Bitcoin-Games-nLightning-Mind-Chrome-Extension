@@ -12,3 +12,10 @@ Batching requests
 
 
 Amazon affiliate, rewrting links 
+
+
+* Keep track of completed tasks
+
+Rationale
+
+In case of social media and sending message to someone, you may want periodically follow up
