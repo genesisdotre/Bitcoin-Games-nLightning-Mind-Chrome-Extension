@@ -1,4 +1,11 @@
 body {
   width: 250px;
-  height: 400px;
+  height: 100%;
+  padding: 10px;
+}
+
+.x {
+  margin-left: 6px;
+  cursor: pointer;
+  font-size: 0.8em;
 }

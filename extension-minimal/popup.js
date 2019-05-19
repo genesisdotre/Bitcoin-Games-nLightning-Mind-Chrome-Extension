@@ -1,50 +1,70 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+let websites = [];
 
-'use strict';
-
-let changeColor = document.getElementById('changeColor');
-
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
-});
-
-changeColor.onclick = function(element) {
-  let color = element.target.value;
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.executeScript(
-        tabs[0].id,
-        {code: 'document.body.style.backgroundColor = "' + color + '";'});
-  });
-};
-
-let websites;
-
+// INIT INIT INIT INIT INIT INIT
 chrome.storage.sync.get('websites', function(data) {
-  if($.isEmptyObject(data)) {
-    websites = [];
-  } else {
+  if(data && data.websites) {
     websites = data.websites;
   }
-
-  let markup = "";
-  websites.forEach(function(website) {
-    markup += "<div>" + website + "</div>";
-  });
-  $("#websites").html(markup);
-
+  websitesMarkup();
 });
 
+function websitesMarkup() {
+  if (websites.length > 0) {
+    let markup = "";
+    websites.forEach(function(website) {
+      markup += "<div class='website'><span class='url'>" + website + "</span><span class='x'>❌</span></div>";
+    });
+    $("#websites").html(markup);
+  } else {
+    $("#websites").html("Nothing saved. Restore defaults or add your one");
+  }
+}
+
+function saveStorage() {
+  return chrome.storage.sync.set({ websites: websites }, function() {
+    console.log("storage updated");
+  });
+}
+
 $("#add").on("submit", function(event) {
-  let val = $("#url").val();
-  console.log(val);
+  let val = $("#url").val(); $("#url").val("")
+
   websites.push(val);
 
-  chrome.storage.sync.set({ websites: websites }, function() {
-    console.log("storage updated");
-  })
+  saveStorage();
+  websitesMarkup();
+
   event.preventDefault();
   return false;
+})
+
+$("#resetDefault").on("click", function() {
+  websites = defaultWebsites;
+  saveStorage();
+  websitesMarkup();
+})
+
+$("#deleteAll").on("click", function() {
+  websites = [];
+  saveStorage();
+  websitesMarkup();
+})
+
+let defaultWebsites = [
+  "facebook.com",
+  "twitter.com",
+  "instagram.com",
+  "reddit.com",
+  "news.ycombinator.com",
+  "9gag.com",
+  "coinmarketcap.com",
+  "bitmex.com",
+  "marsrobertson.com"
+];
+
+$("#websites").on("click", ".x", function() {
+
+  console.log($(this));
+  console.log("x clicked");
+
 })

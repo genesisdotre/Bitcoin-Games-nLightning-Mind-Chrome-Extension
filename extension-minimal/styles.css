@@ -8,62 +8,10 @@ body {
   left: 0;
   height: 100vh;
   width: 100vw;
-  z-index: 999999999;
+  z-index: 2147483647; /* https://en.wikipedia.org/wiki/2,147,483,647 */
+  filter: none; /* TODO: MASSIVE RESET PLEASE, some styles are applied to `body>*` */
 }
 
 #iframed.collapsed {
   height: 400px;
 }
-
-/* 
-#focus-mind-iframe {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  width: 30%;
-  height: 50px;
-  background: pink;
-  opacity: 0.5;
-  z-index: 9999999999;
-}
-
-#angular-app {
-  position: fixed;
-  top: 25px;
-  left: 150px;
-  background: red;
-  z-index: 9999999999;
-}
-
-#simple-iframe{
-  position: fixed;
-  top: 55px;
-  left: 250px;
-  height: 50px;
-  background: yellow;
-  z-index: 9999999999;
-}
-
-.overlay {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-  background: white;
-  z-index: 999999999999;
-}
-
-.countdown {
-  position: fixed;
-  top: 0;
-  height: 30px;
-  left: 0;
-  right: 0;
-  background: white;
-  z-index: 999999999999;  
-}
-
-.countdown-success {
-	
-} */

@@ -34,8 +34,8 @@ var promise = new Promise(function(resolve, reject) {
 promise.then(function(websites) {
     console.log("chrome.storage.sync --- location.href --- displaying YES or NO?", websites);
 
-    for (let i=0; i<data.websites.length; i++) {
-        if (data.websites[i].indexOf(location.host) !== -1) {
+    for (let i=0; i<websites.length; i++) {
+        if (websites[i].indexOf(location.host) !== -1) {
             console.log("INCLUDED")
 
             return;

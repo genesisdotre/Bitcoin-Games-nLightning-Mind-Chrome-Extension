@@ -11,7 +11,7 @@ Just by visiting the website and writing down what you want to accomplish is eno
 Batching requests
 
 
-Amazon affiliate, rewrting links 
+
 
 
 * Keep track of completed tasks
@@ -19,3 +19,6 @@ Amazon affiliate, rewrting links
 Rationale
 
 In case of social media and sending message to someone, you may want periodically follow up
+
+
+* Amazon affiliate, rewrting links 
