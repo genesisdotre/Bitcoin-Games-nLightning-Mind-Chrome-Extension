@@ -1,5 +1,5 @@
-body {
-  display: none;
+body:not(.focus-mind-chrome-extension-loaded) {
+  display: none !important;
 }
 
 #iframed {

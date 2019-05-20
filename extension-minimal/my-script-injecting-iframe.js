@@ -2,11 +2,14 @@
 document.addEventListener('DOMContentLoaded', fireContentLoadedEvent);
 
 function fireContentLoadedEvent () {
-    var path = chrome.runtime.getURL("iframed.html");
-    var iframeMarkup = "<iframe id='iframed' src='" + path + "'></iframe>";
-    
-    $(iframeMarkup).prependTo("body");
-    $("body").show(); // by default is display:none to avoid flashing content
+    if (ACTIVATE) {
+        var path = chrome.runtime.getURL("iframed.html");
+        var iframeMarkup = "<iframe id='iframed' src='" + path + "'></iframe>";
+        
+        $(iframeMarkup).prependTo("body");
+    }
+
+    $("body").addClass("focus-mind-chrome-extension-loaded");
 }
 
 window.onmessage = function(e){
@@ -20,6 +23,8 @@ window.onmessage = function(e){
 
 // Native JavaScript implementation: https://developers.google.com/web/fundamentals/primers/promises
 // Here we decide if the website is annoying or not
+// This should resolve faster than DOMContentLoaded
+// TODO: remove that dependency
 var promise = new Promise(function(resolve, reject) {
 
     chrome.storage.sync.get('websites', function(data) {
@@ -31,12 +36,14 @@ var promise = new Promise(function(resolve, reject) {
   
 });
 
+let ACTIVATE = false;
+
 promise.then(function(websites) {
     console.log("chrome.storage.sync --- location.href --- displaying YES or NO?", websites);
 
     for (let i=0; i<websites.length; i++) {
         if (websites[i].indexOf(location.host) !== -1) {
-            console.log("INCLUDED")
+            ACTIVATE = true;
 
             return;
         }
