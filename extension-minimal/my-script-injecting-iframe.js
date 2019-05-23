@@ -49,6 +49,8 @@ promise.then(function(websites) {
         }
     }
 
+    if (location.host.indexOf("localhost") !== -1) ACTIVATE = true; // HACK FOR OFFLINE WORK
+
     console.log("NOT included")
 
   }, function(err) {

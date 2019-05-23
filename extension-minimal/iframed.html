@@ -9,16 +9,16 @@
   </head>
   <body>
 
-  	<div class="screen initial">
+  		<div class="screen initial">
 			<h1>What do you want to accomplish by visiting <span id="thisSite">DYNAMICALLY_REPLACED</span>?</h1>
 
 			<form id="form">
 				<div class="input-container">
-					<input type="text" class="input-field" placeholder="Something important..." id="task" value="Something..." autofocus>
+					<input type="text" class="input-field" placeholder="Something important..." id="task" value="EMPTY ME (faster that way)" required autofocus>
 				</div>
 				<br>
-				<input id="time-range"  type="range" min="0" max="10" step="1">
-				<input id="time-number" type="number" min="0" max="10" step="1"> minutes
+				<input id="time-range"  type="range" min="1" max="10000" step="1">
+				<input id="time-number" type="number" min="1" max="10000" step="1"> minutes
 				<br>
 				<input type="submit" value="press enter to start">
 			</form>
@@ -26,11 +26,8 @@
 		</div>
 
 		<div class="screen countdown">
-				<h3>
-					Working on: <span id="workingOn">DYNAMIC</span> 
-					Time left: <span id="timeLeft">DYNAMIC</span>
-					<button id="done">Done</button>
-				</h3>
+			<strong><span id="workingOn">DYNAMIC</span></strong><br>
+			<button id="done"><span id="timeLeft">DYNAMIC</span> <strong>done</strong> (close the tab)</button><br>
 		</div>
 
 		<div class="screen failed">

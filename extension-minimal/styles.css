@@ -13,5 +13,6 @@ body:not(.focus-mind-chrome-extension-loaded) {
 }
 
 #iframed.collapsed {
-  height: 400px;
+  width: 250px;
+  height: 50px;
 }

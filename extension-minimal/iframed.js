@@ -44,7 +44,7 @@ $("#form").on("submit", function(event) {
     return false;
 });
 
-let initialValue = 1; $("#time-range").val(initialValue); $("#time-number").val(initialValue);
+let initialValue = 10000; $("#time-range").val(initialValue); $("#time-number").val(initialValue);
 
 $("#time-range").on("input", function() {
     $("#time-number").val( $(this).val() )
@@ -71,9 +71,10 @@ function startCountdown() {
 }
 
 function _closeTab() {
-    chrome.tabs.getCurrent(function(tab) {
-        chrome.tabs.remove(tab.id, function() { });
-    });
+    alert("closing tab works but for debugging I prefer to keep it open"); // IT REALLY WORKS
+    // chrome.tabs.getCurrent(function(tab) {
+    //     chrome.tabs.remove(tab.id, function() { });
+    // });
 }
 
 // THIS DOES NOT WORK
