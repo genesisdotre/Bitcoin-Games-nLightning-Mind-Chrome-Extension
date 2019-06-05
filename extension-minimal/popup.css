@@ -5,7 +5,12 @@ body {
 }
 
 .x {
+  display: none;
   margin-left: 6px;
   cursor: pointer;
   font-size: 0.8em;
+}
+
+.website:hover .x {
+  display: inline-block;
 }

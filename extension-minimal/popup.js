@@ -16,7 +16,7 @@ function websitesMarkup() {
     });
     $("#websites").html(markup);
   } else {
-    $("#websites").html("Nothing saved. Restore defaults or add your one");
+    $("#websites").html("Nothing saved.");
   }
 }
 
