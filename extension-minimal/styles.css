@@ -14,5 +14,6 @@ body:not(.focus-mind-chrome-extension-loaded) {
 
 #iframed.collapsed {
   width: 250px;
-  height: 51px;
+  height: 57px;
+  left: calc(50vw - 125px);
 }

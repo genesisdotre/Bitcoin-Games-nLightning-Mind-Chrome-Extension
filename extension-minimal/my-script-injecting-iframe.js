@@ -42,7 +42,7 @@ promise.then(function(websites) {
     console.log("chrome.storage.sync --- location.href --- displaying YES or NO?", websites);
 
     for (let i=0; i<websites.length; i++) {
-        if (websites[i].indexOf(location.host) !== -1) {
+        if (websites[i].indexOf(location.host.replace("www.","")) !== -1) {
             ACTIVATE = true;
 
             return;
