@@ -125,25 +125,48 @@ $("#getinfo").on("click", function() {
   
 })
 
-let price1sat;
-let satoshisPerSecond = 100; // this is the base currency of the future
+// IT CAN GET COMPLICATED
+// as a user I can slide `sat`
+// as a user I can slide `usd`
+// all 4 input fields need to stay in sync
+
+
+let satoshisPerSecond = 100; // this is the base currency
 let dollarsPerHour;
 
-$.get("https://api.coindesk.com/v1/bpi/currentprice.json", function(response) {
-  let BTCUSD = JSON.parse(response).bpi.USD.rate_float;
-  price1sat = BTCUSD / 100000000;
-  updateSliders();
-})
+
+// OFFLINE
+// $.get("https://api.coindesk.com/v1/bpi/currentprice.json", function(response) {
+//   let BTCUSD = JSON.parse(response).bpi.USD.rate_float;
+//   price1sat = BTCUSD / 100000000;
+//   updateSliders();
+// })
+
+const price1sat = 8000 / 100000000; // for simplicity, we assume the price is constant and does not fluctuate that much TODO: in the future add periodical check but worried if everything goes out of range
+updateSliders();
+$("#sat-range").val(satoshisPerSecond);
+$("#sat-number").val(satoshisPerSecond);
+
+// Satoshis are limited between 1 and 1000. For USD it will be different. Always `sat` as base currency
+function setMaxDollarValues() {
+  let maxPerHour = Math.ceil(1000 * price1sat * 3600);
+  $("#dol-number").attr("max", maxPerHour);
+  $("#dol-range").attr("max", maxPerHour);
+}
+
+setMaxDollarValues();
 
 
-
-$("#dol-number").attr("min", 5);
-$("#dol-number").attr("max", 20);
-
-function updateSliders() {
-  let dollarsPerHour = satoshisPerSecond * 3600 * price1sat;
-  $("#dol-number").val(dollarsPerHour);
-  $("#dol-range").val(dollarsPerHour);
+function updateSliders(satoshis) {
+  if (satoshis === false) { // option when it was dollars per hour that changed, otherwise default satoshis per second
+    satoshisPerSecond = Math.ceil((dollarsPerHour / 3600) / price1sat);
+    $("#sat-number").val(satoshisPerSecond);
+    $("#sat-range").val(satoshisPerSecond);
+  } else {
+    dollarsPerHour = Math.ceil(satoshisPerSecond * 3600 * price1sat);
+    $("#dol-number").val(dollarsPerHour);
+    $("#dol-range").val(dollarsPerHour);
+  }
 }
 
 $("#sat-range").on("input", function() {
@@ -156,10 +179,60 @@ $("#sat-number").on("input", function() {
   satoshisPerSecond = $(this).val();
   updateSliders();
 })
-// $("#dol-range").on("input", function() {
-//   $("#dol-number").val( $(this).val() )
-// })
-// $("#dol-number").on("input", function() {
-//   $("#dol-range").val( $(this).val() )
-// })
+$("#dol-range").on("input", function() {
+  $("#dol-number").val( $(this).val() )
+  dollarsPerHour = $(this).val();
+  updateSliders(false);
+})
+$("#dol-number").on("input", function() {
+  $("#dol-range").val( $(this).val() )
+  dollarsPerHour = $(this).val();
+  updateSliders(false);
+})
 
+// ************************ Drag and drop ***************** //
+// https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+let dropArea = document.getElementById("drop-area")
+
+// Prevent default drag behaviors
+;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  dropArea.addEventListener(eventName, preventDefaults, false)   
+  document.body.addEventListener(eventName, preventDefaults, false)
+})
+
+// Highlight drop area when item is dragged over it
+;['dragenter', 'dragover'].forEach(eventName => {
+  dropArea.addEventListener(eventName, highlight, false)
+})
+
+;['dragleave', 'drop'].forEach(eventName => {
+  dropArea.addEventListener(eventName, unhighlight, false)
+})
+
+// Handle dropped files
+dropArea.addEventListener('drop', handleDrop, false)
+
+function preventDefaults (e) {
+  e.preventDefault()
+  e.stopPropagation()
+}
+
+function highlight(e) {
+  dropArea.classList.add('highlight')
+}
+
+function unhighlight(e) {
+  dropArea.classList.remove('active')
+}
+
+function handleDrop(e) {
+  file = e.dataTransfer.files[0]; 
+  if (file) {
+    fileReader = new FileReader();
+    fileReader.onload = function(e) {
+      var content = e.target.result;
+      console.log(content);
+    };
+    fileReader.readAsText(file);
+  }
+}
