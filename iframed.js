@@ -52,13 +52,13 @@ function _closeTab() {
 }
 
 
-// chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-//     console.log(tabs);
-//     var tab = tabs[0];
-//     var url = new URL(tab.url)
-//     var domain = url.hostname
-//     $("#thisSite").text(domain);
-// })
+chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    console.log(tabs);
+    var tab = tabs[0];
+    var url = new URL(tab.url)
+    var domain = url.hostname
+    $("#thisSite").text(domain);
+})
 
 
 // ANIMATED FLOW OF SATOSHIS

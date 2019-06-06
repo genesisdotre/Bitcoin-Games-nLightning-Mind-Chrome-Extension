@@ -7,6 +7,11 @@ html {
     padding: 10px;
     background: rgba(230,230,230,0.8);
 }
+.bw {
+    color: white;
+    background: black;
+}
+
 h1 {
     font-weight: normal;
 }
@@ -21,8 +26,11 @@ input[type=text] {
     box-sizing: border-box;
     width: 100%;
 }
-.failed, .countdown {
+.screen.failed, .screen.countdown {
     display: none;
+}
+.screen.countdown {
+    background: none;
 }
 
 .flow {
