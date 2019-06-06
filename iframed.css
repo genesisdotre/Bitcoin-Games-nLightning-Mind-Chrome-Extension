@@ -25,9 +25,16 @@ input[type=text] {
     display: none;
 }
 
-#timeLeft {
-    display: inline-block;
+.flow {
+    width: 400px;
+    height: 52px;
+    overflow-x: hidden;
+    margin-left: -10px; /* because of 10px padding we want edge to edge */
+}
+
+.sat {
+    position: absolute;
+    transition: all 0.05s linear;
     width: 32px;
-    margin-right: 9px;
-    text-align: left;
+    height: 32px;
 }
