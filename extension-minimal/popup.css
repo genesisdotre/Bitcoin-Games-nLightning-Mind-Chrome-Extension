@@ -15,6 +15,24 @@ body {
   display: inline-block;
 }
 
+.tab {
+  background: gray;
+  border: 2px solid orange;
+  padding: 0 5px;
+}
+
+.page {
+  display: none
+}
+.page.active {
+  display: block;
+}
+
+
+
+
+
+
 
 
 a {

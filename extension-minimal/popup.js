@@ -190,7 +190,18 @@ $("#dol-number").on("input", function() {
   updateSliders(false);
 })
 
-// ************************ Drag and drop ***************** //
+// NAVIGATION
+$(".nav").on("click", ".tab", function() {
+
+  $(".page").removeClass("active");
+  $("." + $(this).data("tab")).addClass("active");
+})
+
+
+
+
+
+// DRAG AND DROP
 // https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
 let dropArea = document.getElementById("drop-area")
 
