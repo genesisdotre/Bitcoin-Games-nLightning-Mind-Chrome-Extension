@@ -70,12 +70,12 @@ $("#websites").on("click", ".x", function() {
 })
 
 $("#macaroon").on("change", function(event) {
-  var file = event.target.files[0]; 
+  file = event.target.files[0]; 
   if (file){
-    var fileReader = new FileReader();
+    fileReader = new FileReader();
     fileReader.onload = function(e) {
-      var binaryString = e.target.result;
-
+      xxx = buffer.Buffer.from(e.target.result).toString("hex");
+      console.log(xxx);
 
 
     };
@@ -125,27 +125,21 @@ $("#getinfo").on("click", function() {
   
 })
 
-// IT CAN GET COMPLICATED
 // as a user I can slide `sat`
 // as a user I can slide `usd`
 // all 4 input fields need to stay in sync
-
-
 let satoshisPerSecond = 100; // this is the base currency
 let dollarsPerHour;
-
-
-// OFFLINE
-// $.get("https://api.coindesk.com/v1/bpi/currentprice.json", function(response) {
-//   let BTCUSD = JSON.parse(response).bpi.USD.rate_float;
-//   price1sat = BTCUSD / 100000000;
-//   updateSliders();
-// })
-
-const price1sat = 8000 / 100000000; // for simplicity, we assume the price is constant and does not fluctuate that much TODO: in the future add periodical check but worried if everything goes out of range
-updateSliders();
 $("#sat-range").val(satoshisPerSecond);
 $("#sat-number").val(satoshisPerSecond);
+
+$.get("https://api.coindesk.com/v1/bpi/currentprice.json", function(response) {
+  let BTCUSD = JSON.parse(response).bpi.USD.rate_float;
+  price1sat = BTCUSD / 100000000;
+  updateSliders();
+  setMaxDollarValues();
+})
+
 
 // Satoshis are limited between 1 and 1000. For USD it will be different. Always `sat` as base currency
 function setMaxDollarValues() {
@@ -154,12 +148,9 @@ function setMaxDollarValues() {
   $("#dol-range").attr("max", maxPerHour);
 }
 
-setMaxDollarValues();
-
-
 function updateSliders(satoshis) {
   if (satoshis === false) { // option when it was dollars per hour that changed, otherwise default satoshis per second
-    satoshisPerSecond = Math.ceil((dollarsPerHour / 3600) / price1sat);
+    satoshisPerSecond = Math.floor((dollarsPerHour / 3600) / price1sat); // don't want to get 1001
     $("#sat-number").val(satoshisPerSecond);
     $("#sat-range").val(satoshisPerSecond);
   } else {

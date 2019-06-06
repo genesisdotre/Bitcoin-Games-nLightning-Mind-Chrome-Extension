@@ -53,7 +53,6 @@ $("#time-number").on("input", function() {
     $("#time-range").val( $(this).val() )
 })
 
-
 function startCountdown() {
     $(".screen").hide();
     $(".screen.countdown").show();
@@ -77,8 +76,6 @@ function _closeTab() {
     // });
 }
 
-// THIS DOES NOT WORK
-// Error handling response: TypeError: Failed to construct 'URL': Invalid URL
 
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     console.log(tabs);
