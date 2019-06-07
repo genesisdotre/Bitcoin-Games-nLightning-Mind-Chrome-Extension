@@ -125,6 +125,44 @@ $("#getinfo").on("click", function() {
   
 })
 
+$("#pay2").on("click", function() {
+  let lnInvoice = $("#invoice").val();
+  payInvoice(lnInvoice);
+});
+
+
+function payInvoice(invoice) {
+  console.log("Received invoice, will pay: " + invoice);
+  return new Promise(function(resolve, reject) {
+
+        var requestBody = { 
+          payment_request: invoice,
+        };
+       
+        $.ajax({
+            url: 'https://localhost:8081/v1/channels/transactions',
+            type: 'post',
+            form: JSON.stringify(requestBody),
+            headers: {
+              'Grpc-Metadata-macaroon': macaroon
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.info(data.lightning_invoice.payreq);
+            }
+        });
+
+  });
+}
+
+
+
+
+
+
+
+
+
 // as a user I can slide `sat`
 // as a user I can slide `usd`
 // all 4 input fields need to stay in sync
@@ -187,6 +225,9 @@ $(".nav").on("click", ".tab", function() {
   $(".page").removeClass("active");
   $("." + $(this).data("tab")).addClass("active");
 })
+
+
+
 
 
 

@@ -11,11 +11,8 @@ function timeIsUp() {
 }
 
 $("#done").on("click", function() {
-    _closeTab();
-});
-
-$("#closeTheTab").on("click", function() {
-    _closeTab();
+    // _closeTab();
+    clearInterval(intervalId);
 });
 
 $("#form").on("submit", function(event) {
@@ -36,6 +33,12 @@ function startCountdown() {
     function countdown() {
         if (timeSeconds === 0) {
             timeIsUp();
+        }
+        if (timeSeconds % 5 === 0) {
+            createInvoice(10).then(function(invoice) {
+                getInfoInvoice(invoice).then(function(resp) { console.log(resp) });
+                payInvoice(invoice).then(function(resp) { console.log(resp) });
+            })
         }
         timeSeconds--;
     }
@@ -59,6 +62,71 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     var domain = url.hostname
     $("#thisSite").text(domain);
 })
+
+
+
+// INVOICES
+function createInvoice(sat) {
+    return new Promise(function(resolve, reject) {
+        $.ajax({
+            url: 'https://api.opennode.co/v1/charges',
+            type: 'post',
+            data: JSON.stringify({ amount: 10 }),
+            headers: {
+              'Authorization': '120c2f48-a2c6-4bc7-9950-939b5526af07' // hard coded API key? HMMM...
+            },
+            dataType: 'json',
+            contentType: "application/json",
+            success: function (response) {
+                resolve(response.data.lightning_invoice.payreq);
+            }
+        });
+        
+    });
+}
+
+let macaroon = "0201036c6e6402cf01030a1054a03ffe820ed30ff7301b5b7645e6a21201301a160a0761646472657373120472656164120577726974651a130a04696e666f120472656164120577726974651a170a08696e766f69636573120472656164120577726974651a160a076d657373616765120472656164120577726974651a170a086f6666636861696e120472656164120577726974651a160a076f6e636861696e120472656164120577726974651a140a057065657273120472656164120577726974651a120a067369676e6572120867656e6572617465000006206fbbce082e4ed2359d5eb9cbf87d2365d4388394a4022db180c51e8eac2d3a5d";
+
+function payInvoice(invoice) {
+    return new Promise(function(resolve, reject) {
+
+          var requestBody = { 
+            payment_request: invoice,
+          };
+         
+          $.ajax({
+              url: 'https://localhost:8081/v1/channels/transactions',
+              type: 'post',
+              data: JSON.stringify(requestBody),
+              headers: {
+                'Grpc-Metadata-macaroon': macaroon
+              },
+              dataType: 'json',
+              success: function (response) {
+                  resolve(response);
+              }
+          });
+  
+    });
+}
+
+function getInfoInvoice(invoice) {
+    return new Promise(function(resolve, reject) {
+
+        $.ajax({
+        url: 'https://127.0.0.1:8081/v1/payreq/' + invoice,
+        type: 'get',
+        headers: {
+            'grpc-metadata-macaroon': macaroon
+        },
+        dataType: 'json',
+        success: function (response) {
+            resolve(response);
+        }
+        });
+    
+    })
+}
 
 
 // ANIMATED FLOW OF SATOSHIS

@@ -10,10 +10,18 @@ body:not(.focus-mind-chrome-extension-loaded) {
   width: 100vw;
   z-index: 2147483647; /* https://en.wikipedia.org/wiki/2,147,483,647 */
   filter: none; /* TODO: MASSIVE RESET PLEASE, some styles are applied to `body>*` */
+
+  /* coming from reset.css */
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 
 #iframed.collapsed {
   width: 400px;
   height: 122px;
-  left: calc(50vw - 125px);
+  left: calc(50vw - 200px);
 }
