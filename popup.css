@@ -48,7 +48,7 @@ a {
 #drop-area {
   border: 2px dashed #ccc;
   border-radius: 20px;
-  width: 480px;
+  width: 190px;
   margin: 50px auto;
   padding: 20px;
 }
@@ -81,6 +81,13 @@ p {
 .button:hover {
   background: #ddd;
 }
-#fileElem {
+#macaroon {
   display: none;
+}
+#macaroon-textarea {
+  font-family: monospace;
+  font-size: 0.8em;
+  width: 240px;
+  height: 100px;
+  background-color: #e2e2e2
 }

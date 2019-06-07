@@ -38,20 +38,22 @@
 
       <div class="page lnd">
 
-        <input type="file" id="macaroon">
+        <div>It lives <span style="font-family: monospace; word-break: break-all;">~/Library/Application Support/Lnd/data/chain/bitcoin/mainnet/admin.macaroon</span> on my machine.</div>
 
         <div id="drop-area">
           <form class="my-form">
             <p>Upload macaroon</p>
-            <input type="file" id="fileElem" onchange="handleFiles(this.files)">
-            <label class="button" for="fileElem">Select the .macaroon</label>
+            <input type="file" id="macaroon">
+            <label class="button" for="macaroon">Select the .macaroon</label>
           </form>
         </div>
+
+        <textarea readonly id="macaroon-textarea"></textarea>
       </div>
 
       <div class="page about">
         <h3>Hack the planet.</h3>
-        <h3><a href="https://genesis.re/wiki#Plan_B">Plan B</a></h3>
+        <h3><a href="https://genesis.re/wiki#Plan_B" target="_blank">Plan B</a></h3>
         <p>Rational game-theory incentives ⚡️️️⚡️️️⚡️️️</p>
       </div>
     

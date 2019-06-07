@@ -63,7 +63,13 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     $("#thisSite").text(domain);
 })
 
-
+chrome.storage.sync.get("macaroon", function(data) {
+    if(data && data.macaroon) {
+        macaroon = data.macaroon;
+    } else {
+        alert("need to configure extension first with admin.macaroon");
+    }
+});
 
 // INVOICES
 function createInvoice(sat) {

@@ -1,34 +1,47 @@
 let websites = [];
 
 // INIT INIT INIT INIT INIT INIT
-chrome.storage.sync.get('websites', function(data) {
-  if(data && data.websites) {
-    websites = data.websites;
-  } else {
-    websites = defaultWebsites; // initially when there is nothing there
-  }
+let prom1 = new Promise(function(resolve, reject) {
+  chrome.storage.sync.get('websites', function(data) {
+    if(data && data.websites) {
+      websites = data.websites;
+    } else {
+      websites = defaultWebsites; // initially when there is nothing there
+    }
+    resolve(websites);
+  });
 });
 
-chrome.storage.sync.get('satoshis', function(data) {
-  if(data && data.satoshis) {
-    satoshisPerSecond = data.websites;
-  } else {
-    satoshisPerSecond = 3;
-  }
+let prom2 = new Promise(function(resolve, reject) {
+  chrome.storage.sync.get('satoshis', function(data) {
+    if(data && data.satoshis) {
+      satoshisPerSecond = data.satoshis;
+    } else {
+      satoshisPerSecond = 3;
+    }
+    resolve(satoshisPerSecond);
+
+    $("#sat-range").val(satoshisPerSecond);
+    $("#sat-number").val(satoshisPerSecond);
+  });
+});
+let prom3 = new Promise(function(resolve, reject) {
+  $.get("https://api.coindesk.com/v1/bpi/currentprice.json", function(response) {
+    let BTCUSD = JSON.parse(response).bpi.USD.rate_float;
+    price1sat = BTCUSD / 100000000;
+    resolve(price1sat);
+
+    // Satoshis are limited between 1 and 1000. USD has max slider value depending on price.
+    let maxPerHour = Math.ceil(1000 * price1sat * 3600);
+    $("#dol-number").attr("max", maxPerHour);
+    $("#dol-range").attr("max", maxPerHour);
+  })
 });
 
-$.get("https://api.coindesk.com/v1/bpi/currentprice.json", function(response) {
-  let BTCUSD = JSON.parse(response).bpi.USD.rate_float;
-  price1sat = BTCUSD / 100000000;
-
-  // Satoshis are limited between 1 and 1000. USD has max slider value depending on price.
-  let maxPerHour = Math.ceil(1000 * price1sat * 3600);
-  $("#dol-number").attr("max", maxPerHour);
-  $("#dol-range").attr("max", maxPerHour);
-})
-
-
-
+Promise.all([prom1, prom2, prom3]).then(function(values) {
+  websitesMarkup();
+  updateSliders();
+});
 
 function websitesMarkup() {
   if (websites.length > 0) {
@@ -44,7 +57,7 @@ function websitesMarkup() {
 
 function saveStorage() {
   return chrome.storage.sync.set({ websites: websites }, function() {
-    console.log("storage updated");
+    console.log("storage updated websites", websites);
   });
 }
 
@@ -95,12 +108,12 @@ $("#websites").on("click", ".x", function() {
 
 
 
+
+
 // SLIDERS SLIDERS SLIDERS SLIDERS
 let satoshisPerSecond;
 let dollarsPerHour;
 let price1sat;
-$("#sat-range").val(satoshisPerSecond);
-$("#sat-number").val(satoshisPerSecond);
 
 function updateSliders(satoshis) {
   if (satoshis === false) { // option when it was dollars per hour that changed, otherwise default satoshis per second
@@ -155,23 +168,6 @@ $(".nav").on("click", ".tab", function() {
 
 
 
-// MACAROON BUFFER TO HEX
-$("#macaroon").on("change", function(event) {
-  file = event.target.files[0]; 
-  if (file){
-    fileReader = new FileReader();
-    fileReader.onload = function(e) {
-      xxx = buffer.Buffer.from(e.target.result).toString("hex");
-      console.log(xxx);
-
-
-    };
-    fileReader.readAsBinaryString(file);
-  }
-});
-
-
-
 
 
 // DRAG AND DROP
@@ -209,14 +205,33 @@ function unhighlight(e) {
   dropArea.classList.remove('active')
 }
 
+$("#macaroon").on("change", handleDrop);
+
 function handleDrop(e) {
-  file = e.dataTransfer.files[0]; 
+  let file;
+  if (e.type === "change") {
+    file = e.target.files[0]
+  } else if (e.type === "drop") {
+    file = e.dataTransfer.files[0]; 
+  }
+  
   if (file) {
-    fileReader = new FileReader();
+    let fileReader = new FileReader();
     fileReader.onload = function(e) {
-      var content = e.target.result;
-      console.log(content);
+      let macaroon = buffer.Buffer.from(e.target.result).toString("hex");
+      $("#macaroon-textarea").val(macaroon);
+      chrome.storage.sync.set({ macaroon: macaroon }, function() {
+        console.log("storage updated macaroon", macaroon);
+      });
     };
-    fileReader.readAsText(file);
+    fileReader.readAsBinaryString(file);
   }
 }
+
+// This is only for presentation purposes
+// Actual work happens in `iframed.js`
+chrome.storage.sync.get("macaroon", function(data) {
+  if(data && data.macaroon) {
+      $("#macaroon-textarea").val(data.macaroon);
+  }
+});
