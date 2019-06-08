@@ -1,7 +1,15 @@
-console.log("I'm included in iframed.html, my name is iframed.js");
+// listening for changes from extension popup
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.satoshis) {
+    console.log("New satoshis per second: " + request.satoshis);
+    satoshis = request.satoshis;
+  }
+});
 
 let intervalId;
-let timeSeconds = 500;
+let timeSeconds = 60; // 10 minutes max, don't want to eat all your money
+let delay5seconds = 5; // sending payment every second?
+let start;
 
 function timeIsUp() {
     window.top.postMessage('timeIsUp', '*');
@@ -11,12 +19,12 @@ function timeIsUp() {
 }
 
 $("#done").on("click", function() {
-    // _closeTab();
+    _closeTab();
     clearInterval(intervalId);
 });
 
 $("#form").on("submit", function(event) {
-    let task = $("#task").val();
+    let task = $("#task").val() ? $("#task").val() : "Something important, really";
     $("#workingOn").text(task); // copy paste from the form
 
     startCountdown();
@@ -25,20 +33,22 @@ $("#form").on("submit", function(event) {
     return false;
 });
 
-
 function startCountdown() {
+    $("body").addClass("fraud"); // changing background image to Craig Wright
     $(".screen").hide();
     $(".screen.countdown").show();
+    start = new Date();
+    requestAnimationFrame(moveMe);
 
     function countdown() {
         if (timeSeconds === 0) {
             timeIsUp();
         }
-        if (timeSeconds % 5 === 0) {
-            createInvoice(10).then(function(invoice) {
-                getInfoInvoice(invoice).then(function(resp) { console.log(resp) });
-                payInvoice(invoice).then(function(resp) { console.log(resp) });
-            })
+        if (timeSeconds % delay5seconds === 0) {
+          createInvoice(satoshis * delay5seconds).then(function(invoice) {
+              getInfoInvoice(invoice).then(function(resp) { console.log(resp) });
+              payInvoice(invoice).then(function(resp) { console.log(resp) });
+          })
         }
         timeSeconds--;
     }
@@ -48,12 +58,11 @@ function startCountdown() {
 }
 
 function _closeTab() {
-    alert("closing tab works but for debugging I prefer to keep it open"); // IT REALLY WORKS
-    // chrome.tabs.getCurrent(function(tab) {
-    //     chrome.tabs.remove(tab.id, function() { });
-    // });
+    // alert("closing tab works but for debugging I prefer to keep it open"); // IT REALLY WORKS
+    chrome.tabs.getCurrent(function(tab) {
+        chrome.tabs.remove(tab.id, function() { });
+    });
 }
-
 
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     console.log(tabs);
@@ -63,6 +72,9 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     $("#thisSite").text(domain);
 })
 
+let macaroon;
+let satoshis;
+
 chrome.storage.sync.get("macaroon", function(data) {
     if(data && data.macaroon) {
         macaroon = data.macaroon;
@@ -71,13 +83,21 @@ chrome.storage.sync.get("macaroon", function(data) {
     }
 });
 
+chrome.storage.sync.get("satoshis", function(data) {
+    if(data && data.satoshis) {
+        satoshis = data.satoshis;
+    } else {
+        alert("need to configure extension first with admin.macaroon");
+    }
+});
+
 // INVOICES
-function createInvoice(sat) {
+function createInvoice(amount) {
     return new Promise(function(resolve, reject) {
         $.ajax({
             url: 'https://api.opennode.co/v1/charges',
             type: 'post',
-            data: JSON.stringify({ amount: 10 }),
+            data: JSON.stringify({ amount: amount }),
             headers: {
               'Authorization': '120c2f48-a2c6-4bc7-9950-939b5526af07' // hard coded API key? HMMM...
             },
@@ -90,8 +110,6 @@ function createInvoice(sat) {
         
     });
 }
-
-let macaroon = "0201036c6e6402cf01030a1054a03ffe820ed30ff7301b5b7645e6a21201301a160a0761646472657373120472656164120577726974651a130a04696e666f120472656164120577726974651a170a08696e766f69636573120472656164120577726974651a160a076d657373616765120472656164120577726974651a170a086f6666636861696e120472656164120577726974651a160a076f6e636861696e120472656164120577726974651a140a057065657273120472656164120577726974651a120a067369676e6572120867656e6572617465000006206fbbce082e4ed2359d5eb9cbf87d2365d4388394a4022db180c51e8eac2d3a5d";
 
 function payInvoice(invoice) {
     return new Promise(function(resolve, reject) {
@@ -137,8 +155,6 @@ function getInfoInvoice(invoice) {
 
 // ANIMATED FLOW OF SATOSHIS
 
-let start = new Date();
-
 function getVariation() {
   let rnd = Math.floor(Math.random() * 1000);
   let variation = 0;
@@ -167,9 +183,8 @@ function moveMe() {
   let diff = new Date(now - start);
 
   let milliseconds = (diff.getMinutes() * 60 + diff.getSeconds()) * 1000 + diff.getMilliseconds()
-  let satoshisPerMillisecond = 347.22 / 1000; // just like example https://bitcoin.stackexchange.com/q/88117/11112
 
-  let satoshisText = "฿ 0." +("00000000" + Math.round(milliseconds * satoshisPerMillisecond)).slice(-8)
+  let satoshisText = "฿ 0." +("00000000" + Math.round(milliseconds * satoshis  / 1000)).slice(-8)
   $("#satoshis").text(satoshisText);
 
   // MOVE THE THINGS...
@@ -205,5 +220,3 @@ function moveMe() {
 
   requestAnimationFrame(moveMe);
 }
-
-requestAnimationFrame(moveMe);

@@ -126,6 +126,10 @@ function updateSliders(satoshis) {
     $("#dol-range").val(dollarsPerHour);
   }
 
+  chrome.runtime.sendMessage({satoshis: satoshisPerSecond}, function(response) {
+    console.log("send satoshisPerSecond to the host page that runs iframed.js");
+  });
+
   return chrome.storage.sync.set({ satoshis: satoshisPerSecond }, function() {
     console.log("storage updated, satoshisPerSecond: " + satoshisPerSecond);
   });  
@@ -202,7 +206,12 @@ function highlight(e) {
 }
 
 function unhighlight(e) {
-  dropArea.classList.remove('active')
+  dropArea.classList.remove('highlight')
+}
+
+// https://stackoverflow.com/questions/40031688/javascript-arraybuffer-to-hex
+function buf2hex(buffer) { // buffer is an ArrayBuffer
+  return Array.prototype.map.call(new Uint8Array(buffer), x => ('00' + x.toString(16)).slice(-2)).join('');
 }
 
 $("#macaroon").on("change", handleDrop);
@@ -218,13 +227,13 @@ function handleDrop(e) {
   if (file) {
     let fileReader = new FileReader();
     fileReader.onload = function(e) {
-      let macaroon = buffer.Buffer.from(e.target.result).toString("hex");
+      let macaroon = buf2hex(e.target.result);
       $("#macaroon-textarea").val(macaroon);
       chrome.storage.sync.set({ macaroon: macaroon }, function() {
         console.log("storage updated macaroon", macaroon);
       });
     };
-    fileReader.readAsBinaryString(file);
+    fileReader.readAsArrayBuffer(file);
   }
 }
 

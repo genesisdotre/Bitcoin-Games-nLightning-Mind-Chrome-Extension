@@ -1,3 +1,13 @@
+Chrome extension that is helping you focus mind
+
+nlightning mind chrome extension
+
+There are so many annoying websites and there are tools 
+
+
+
+### Where does the profit go?
+Sorry not sorry, shameless plug, a meaningful (effective altruism, exponential technologies) project initiated by me: https://genesis.re/wiki/#Plan_B
 
 
 ### TODO:

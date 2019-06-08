@@ -16,9 +16,15 @@ body {
 }
 
 .tab {
-  background: gray;
-  border: 2px solid orange;
-  padding: 0 5px;
+  background: #e2e2e2;
+  padding: 5px;
+  width: 51.5px;
+  display: inline-block;
+  text-align: center;
+  border-right: 1px solid black;
+}
+.tab:last-of-type {
+  border-right: none;
 }
 
 .page {
@@ -31,8 +37,9 @@ body {
 
 
 
-
-
+#dol-number, #sat-number {
+  width: 43 px;
+}
 
 
 a {
@@ -60,15 +67,6 @@ p {
 }
 .my-form {
   margin-bottom: 10px;
-}
-#gallery {
-  margin-top: 10px;
-}
-#gallery img {
-  width: 150px;
-  margin-bottom: 10px;
-  margin-right: 10px;
-  vertical-align: middle;
 }
 .button {
   display: inline-block;

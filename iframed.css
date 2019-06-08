@@ -1,5 +1,10 @@
-html { 
+body { 
     background: url(background.jpg) no-repeat center center fixed; 
+    background-size: cover;
+}
+
+body.fraud { 
+    background: url(not-a-fraud.jpg) no-repeat center center fixed; 
     background-size: cover;
 }
 
