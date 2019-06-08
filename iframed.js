@@ -7,8 +7,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 let intervalId;
-let timeSeconds = 60; // 10 minutes max, don't want to eat all your money
-let delay5seconds = 5; // sending payment every second?
+let timeSeconds = 4; // 10 minutes max, don't want to eat all your money
+let delay5seconds = 60; // sending payment every second?
 let start;
 
 function timeIsUp() {
@@ -16,6 +16,7 @@ function timeIsUp() {
     clearInterval(intervalId);
     $(".screen").hide();
     $(".screen.failed").show();
+    player.playVideo(); // you'll have to suffer ! ! ! ! ! !
 }
 
 $("#done").on("click", function() {
@@ -178,13 +179,17 @@ function getVariation() {
   return variation;
 }
 
+let paidSoFar = 0; // price per second cna change dynamically, need to keep track
+
 function moveMe() {
   let now = new Date();
   let diff = new Date(now - start);
 
-  let milliseconds = (diff.getMinutes() * 60 + diff.getSeconds()) * 1000 + diff.getMilliseconds()
+  let milliseconds = (diff.getMinutes() * 60 + diff.getSeconds()) * 1000 + diff.getMilliseconds(); // most likely milliseconds only
+  let increase = (satoshis / 1000) * milliseconds;
+  paidSoFar += increase;
 
-  let satoshisText = "฿ 0." +("00000000" + Math.round(milliseconds * satoshis  / 1000)).slice(-8)
+  let satoshisText = "฿ 0." +("00000000" + Math.round(paidSoFar)).slice(-8)
   $("#satoshis").text(satoshisText);
 
   // MOVE THE THINGS...
@@ -218,5 +223,55 @@ function moveMe() {
     $(sat).css({"top": newTop});
   });
 
+  start = now;
   requestAnimationFrame(moveMe);
+}
+
+
+
+// CRAIG WRIGHT YOUTUBE BUSINESS
+
+var tag = document.createElement('script');
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+// 3. This function creates an <iframe> (and YouTube player)
+//    after the API code downloads.
+var player;
+function onYouTubeIframeAPIReady() {
+  console.log("onYouTubeIframeAPIReady")
+  player = new YT.Player('craig-wright-is-not-a-fraud-player', {
+    height: '390',
+    width: '640',
+    videoId: '5DCAC1j2HTY',
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+}
+
+// HACK TO BUFFER https://stackoverflow.com/a/9864780/775359
+
+// 4. The API will call this function when the video player is ready.
+function onPlayerReady(event) {
+  player.mute();
+  player.seekTo(22);
+  event.target.playVideo();
+}
+
+let initialBuffering = true;
+
+function onPlayerStateChange(event) {
+  console.log(event);
+
+  if (initialBuffering) {
+    if (event.data == YT.PlayerState.PLAYING) {
+      player.pauseVideo();
+      player.unMute();
+      initialBuffering = false; // we do this only once
+    }
+  }
 }

@@ -1,7 +1,11 @@
+console.log("my script injecting iframe");
+
 // https://stackoverflow.com/questions/28186349/chrome-extension-set-to-run-at-document-start-is-running-too-fast
 document.addEventListener('DOMContentLoaded', fireContentLoadedEvent);
 
 function fireContentLoadedEvent () {
+    console.log("FIRE EVENT CONTENT LOADED");
+
     if (ACTIVATE) {
         var path = chrome.runtime.getURL("iframed.html");
         var iframeMarkup = "<iframe id='iframed' src='" + path + "'></iframe>";
@@ -30,8 +34,20 @@ var promise = new Promise(function(resolve, reject) {
     chrome.storage.sync.get('websites', function(data) {
         if (data && data.websites) {
             resolve(data.websites);
+        } else {
+            let defaultWebsites = [ // some code duplication here, it lives also in popup.js
+                "facebook.com",
+                "twitter.com",
+                "instagram.com",
+                "reddit.com",
+                "news.ycombinator.com",
+                "9gag.com",
+                "coinmarketcap.com",
+                "bitmex.com",
+                "marsrobertson.com"
+              ];
+            resolve(defaultWebsites);
         }
-        reject(data);
     });
   
 });
@@ -49,10 +65,17 @@ promise.then(function(websites) {
         }
     }
 
-    if (location.host.indexOf("localhost") !== -1) ACTIVATE = true; // HACK FOR OFFLINE WORK
+    // if (location.host.indexOf("localhost") !== -1) ACTIVATE = true; // HACK FOR OFFLINE WORK
 
     console.log("NOT included")
 
   }, function(err) {
     console.log(err);
   });
+
+// This is a hack as on Twitter body is invisible
+setInterval(function() {
+    if($("iframe#iframed").toArray().length) {
+        $("body").addClass("focus-mind-chrome-extension-loaded");
+    }
+}, 1000)

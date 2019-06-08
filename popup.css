@@ -22,6 +22,7 @@ body {
   display: inline-block;
   text-align: center;
   border-right: 1px solid black;
+  cursor: pointer;
 }
 .tab:last-of-type {
   border-right: none;

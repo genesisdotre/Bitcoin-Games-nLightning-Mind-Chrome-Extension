@@ -16,13 +16,11 @@
       "run_at": "document_start"
     }
   ],
-
   "web_accessible_resources": [
     "iframed.html",
     "iframed.js",
     "zepto.min.js"
   ],
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
