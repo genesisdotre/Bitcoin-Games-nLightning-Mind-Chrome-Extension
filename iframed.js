@@ -7,8 +7,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 let intervalId;
-let timeSeconds = 4; // 10 minutes max, don't want to eat all your money
-let delay5seconds = 60; // sending payment every second?
+let timeSeconds = 600; // 10 minutes max, don't want to eat all your money
+let delay5seconds = 5; // sending payment every 5 seconds
 let start;
 
 function timeIsUp() {
@@ -16,12 +16,10 @@ function timeIsUp() {
     clearInterval(intervalId);
     $(".screen").hide();
     $(".screen.failed").show();
-    player.playVideo(); // you'll have to suffer ! ! ! ! ! !
 }
 
 $("#done").on("click", function() {
     _closeTab();
-    clearInterval(intervalId);
 });
 
 $("#form").on("submit", function(event) {
@@ -75,12 +73,19 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 
 let macaroon;
 let satoshis;
+let alertShown = false;
+function showAlert() {
+  if (!alertShown) {
+    alertShown = true;
+    alert("need to configure extension first with admin.macaroon");
+  }
+}
 
 chrome.storage.sync.get("macaroon", function(data) {
     if(data && data.macaroon) {
         macaroon = data.macaroon;
     } else {
-        alert("need to configure extension first with admin.macaroon");
+        showAlert();
     }
 });
 
@@ -88,7 +93,7 @@ chrome.storage.sync.get("satoshis", function(data) {
     if(data && data.satoshis) {
         satoshis = data.satoshis;
     } else {
-        alert("need to configure extension first with admin.macaroon");
+        showAlert();
     }
 });
 
@@ -154,8 +159,7 @@ function getInfoInvoice(invoice) {
 }
 
 
-// ANIMATED FLOW OF SATOSHIS
-
+// ANIMATED FLOW OF SATOSHIS AND TICKING COUNTER
 function getVariation() {
   let rnd = Math.floor(Math.random() * 1000);
   let variation = 0;
@@ -179,7 +183,7 @@ function getVariation() {
   return variation;
 }
 
-let paidSoFar = 0; // price per second cna change dynamically, need to keep track
+let paidSoFar = 0; // price per second can change dynamically
 
 function moveMe() {
   let now = new Date();
@@ -230,15 +234,12 @@ function moveMe() {
 
 
 // CRAIG WRIGHT YOUTUBE BUSINESS
-
 var tag = document.createElement('script');
 
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-// 3. This function creates an <iframe> (and YouTube player)
-//    after the API code downloads.
 var player;
 function onYouTubeIframeAPIReady() {
   console.log("onYouTubeIframeAPIReady")
@@ -247,31 +248,12 @@ function onYouTubeIframeAPIReady() {
     width: '640',
     videoId: '5DCAC1j2HTY',
     events: {
-      'onReady': onPlayerReady,
-      'onStateChange': onPlayerStateChange
+      'onReady': onPlayerReady
     }
   });
 }
 
 // HACK TO BUFFER https://stackoverflow.com/a/9864780/775359
-
-// 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-  player.mute();
   player.seekTo(22);
-  event.target.playVideo();
-}
-
-let initialBuffering = true;
-
-function onPlayerStateChange(event) {
-  console.log(event);
-
-  if (initialBuffering) {
-    if (event.data == YT.PlayerState.PLAYING) {
-      player.pauseVideo();
-      player.unMute();
-      initialBuffering = false; // we do this only once
-    }
-  }
 }

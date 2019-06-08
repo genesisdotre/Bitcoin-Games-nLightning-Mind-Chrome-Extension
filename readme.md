@@ -1,9 +1,31 @@
-Chrome extension that is helping you focus mind
+![](readme-images/bitcoin-games-logo.png)
+# nLightning Mind chrome extension
 
-nlightning mind chrome extension
+Chrome extension that is helping you focus mind
 
 There are so many annoying websites and there are tools 
 
+
+
+### Installation
+
+https://medium.com/lightning-power-users/windows-macos-lightning-network-284bd5034340
+
+Visiting that URL is important
+https://127.0.0.1:8081/v1/getinfo
+
+
+Clone or download the repo
+
+chrome://extensions/
+
+Developer Mode
+Load Unpacked
+![](readme-images/developer.png)
+
+### Profit
+
+![](readme-images/activity.gif)
 
 
 ### Where does the profit go?
@@ -22,8 +44,6 @@ Batching requests
 
 
 
-
-
 * Keep track of completed tasks
 
 Rationale
@@ -32,3 +52,5 @@ In case of social media and sending message to someone, you may want periodicall
 
 
 * Amazon affiliate, rewrting links 
+
+Extra income, extra money

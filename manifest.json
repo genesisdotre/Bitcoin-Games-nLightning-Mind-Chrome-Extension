@@ -1,7 +1,7 @@
 {
-  "name": "minimal original Getting Started Example",
+  "name": "nLightning Mind ⚡️️️️️⚡️⚡️️",
   "version": "1.0",
-  "description": "Build an Extension!",
+  "description": "Bitcoin Games Hackathon",
   "permissions": ["activeTab", "declarativeContent", "storage", "tabs"],
   "options_page": "options.html",
   "background": {
@@ -16,6 +16,7 @@
       "run_at": "document_start"
     }
   ],
+  "content_security_policy":"script-src 'self' https://www.youtube.com https://s.ytimg.com; object-src 'self'",
   "web_accessible_resources": [
     "iframed.html",
     "iframed.js",
