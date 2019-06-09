@@ -16,6 +16,8 @@ function timeIsUp() {
     clearInterval(intervalId);
     $(".screen").hide();
     $(".screen.failed").show();
+    player.mute();
+    player.playVideo();
 }
 
 $("#done").on("click", function() {
@@ -183,7 +185,8 @@ function getVariation() {
   return variation;
 }
 
-let paidSoFar = 0; // price per second can change dynamically
+let paidSoFar = 0;
+let arraySatoshis =  $("img.sat").toArray();
 
 function moveMe() {
   let now = new Date();
@@ -197,7 +200,7 @@ function moveMe() {
   $("#satoshis").text(satoshisText);
 
   // MOVE THE THINGS...
-  $("img.sat").toArray().forEach(function(sat) {
+  arraySatoshis.forEach(function(sat) {
 
     // LEFT LEFT LEFT LEFT
     let currentLeft = parseFloat( $(sat).css("left").replace("px", "") );
@@ -230,6 +233,8 @@ function moveMe() {
   start = now;
   requestAnimationFrame(moveMe);
 }
+
+
 
 
 
