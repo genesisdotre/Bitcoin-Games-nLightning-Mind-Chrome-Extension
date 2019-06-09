@@ -88,5 +88,6 @@ p {
   font-size: 0.8em;
   width: 240px;
   height: 100px;
-  background-color: #e2e2e2
+  background-color: #e2e2e2;
+  filter: blur(3px)
 }

@@ -39,21 +39,23 @@ Load Unpacked
 ![](readme-images/developer-mode.png)
 
 
-### Flow of the app
+# Flow of the app
 1. `manifest.json` injecting `my-script-injecting-iframe.js`
 2. Checking if the website is on the black list
 
 
-### Profit
+# Profit
+
+https://genesis.re/wiki#Plan_B
 
 ![](readme-images/activity.gif)
 
 
-### Where does the profit go?
+# Where does the profit go?
 Sorry not sorry, shameless plug, a meaningful (effective altruism, exponential technologies) project initiated by me: https://genesis.re/wiki/#Plan_B
 
 
-### File structure
+# File structure
 It all started from a minimal chrome extension. The most important files marked with ⚡️️⚡️⚡️️
 
 ```
@@ -84,8 +86,7 @@ It all started from a minimal chrome extension. The most important files marked 
 
 I need to cleanup at some point, `zepto.min.js` and `jquery.js`, `reset.css` and `normalize.css` are replacement equivalent: [en.wiktionary.org/wiki/if_it_ain't_broke,_don't_fix_it](https://en.wiktionary.org/wiki/if_it_ain%27t_broke,_don%27t_fix_it)
 
-
-### TODO:
+# TODO:
 
 * less happy path
 
@@ -111,7 +112,7 @@ In case of social media and sending message to someone, you may want periodicall
 
 Extra income, extra money
 
-### ~Problems~ Challenges
+# ~Problems~ Challenges
 
 * https://youtu.be/5DCAC1j2HTY
 [![](readme-images/bbc-showdown.jpg)](https://youtu.be/5DCAC1j2HTY)
@@ -120,7 +121,9 @@ Extra income, extra money
 > Unmuting failed and the element was paused instead because the user didn't interact with the document before.
 
 
-### Acknowledgements
+https://github.com/blockstack/blockstack.js/issues/518#issuecomment-499458485
+
+# Acknowledgements
 
 Normally I'd have to spend `0.1 BTC` per hour consulting services, because it was a hackathon I had every excuse on the planet to ask them questions.
 
@@ -132,7 +135,7 @@ Normally I'd have to spend `0.1 BTC` per hour consulting services, because it wa
 
 Image by [Gerd Altmann](https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4062449) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4062449)
 
-### Proof of Work
+# Proof of Work
 Not that long time ago all my knowledge related to Lightning Network was *"in can scale, crypto magic"*. Now I know a little bit more.
 
 ![](readme-images/pow-open.png)

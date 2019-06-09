@@ -73,7 +73,7 @@ promise.then(function(websites) {
     console.log(err);
   });
 
-// This is a hack as on Twitter body is invisible
+// Sometimes it happens that we need to manually make it visible
 setInterval(function() {
     if($("iframe#iframed").toArray().length) {
         $("body").addClass("focus-mind-chrome-extension-loaded");
