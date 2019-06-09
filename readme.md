@@ -54,39 +54,35 @@ Sorry not sorry, shameless plug, a meaningful (effective altruism, exponential t
 
 
 ### File structure
-It all started from a minimal chrome extension. The most important files marked with ⚡️:
+It all started from a minimal chrome extension. The most important files marked with ⚡️️⚡️⚡️️
 
 ```
 ├── background.jpg
 ├── background.js
 ├── bitcoin-small.png
-├── iframed.css                    ⚡️
-├── iframed.html                   ⚡️
-├── iframed.js                     ⚡️
+├── iframed.css                    ⚡️️⚡️⚡️️
+├── iframed.html                   ⚡️️⚡️⚡️️
+├── iframed.js                     ⚡️️⚡️⚡️️
 ├── images
-│   ├── get_started128.png
-│   ├── get_started16.png
-│   ├── get_started32.png
-│   └── get_started48.png
+│   ├── ...
 ├── jquery.js
-├── manifest.json
-├── my-script-injecting-iframe.js  ⚡️
+├── manifest.json                  ⚡️️⚡️⚡️️
+├── my-script-injecting-iframe.js  ⚡️️⚡️⚡️️
 ├── normalize.css
 ├── not-a-fraud.jpg
 ├── options.html
 ├── options.js
-├── popup.css                      ⚡️
-├── popup.html                     ⚡️
-├── popup.js                       ⚡️
+├── popup.css                      ⚡️️⚡️⚡️️
+├── popup.html                     ⚡️️⚡️⚡️️
+├── popup.js                       ⚡️️⚡️⚡️️
 ├── readme-images
-│   ├── activity.gif
-│   ├── bitcoin-games-logo.png
-│   └── developer-mode.png
-├── readme.md
+│   ├── ...
 ├── reset.css
 ├── styles.css
 └── zepto.min.js
 ```
+
+I need to cleanup at some point, `zepto.min.js` and `jquery.js`, `reset.css` and `normalize.css` are replacement equivalent: [en.wiktionary.org/wiki/if_it_ain't_broke,_don't_fix_it](https://en.wiktionary.org/wiki/if_it_ain%27t_broke,_don%27t_fix_it)
 
 
 ### TODO:

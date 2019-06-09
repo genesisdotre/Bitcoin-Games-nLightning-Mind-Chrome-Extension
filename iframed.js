@@ -39,7 +39,7 @@ function startCountdown() {
     $(".screen").hide();
     $(".screen.countdown").show();
     start = new Date();
-    requestAnimationFrame(moveMe);
+    moveMe();
 
     function countdown() {
         if (timeSeconds === 0) {
@@ -185,6 +185,11 @@ function getVariation() {
   return variation;
 }
 
+// if loads of satoshis per second, then higher multiplier
+function getSpeed(satoshis) {
+  return Math.ceil(satoshis / 100);
+}
+
 let paidSoFar = 0;
 let arraySatoshis =  $("img.sat").toArray();
 
@@ -205,7 +210,7 @@ function moveMe() {
     // LEFT LEFT LEFT LEFT
     let currentLeft = parseFloat( $(sat).css("left").replace("px", "") );
     let variation = getVariation();
-    let newLeft = currentLeft + 5 + variation;
+    let newLeft = currentLeft + 5*getSpeed(satoshis) + variation;
 
     if (newLeft > 430) { // far behind screen
       $(sat).css({display: "none"}); // need to disable transition otherwise looks crap
@@ -231,7 +236,7 @@ function moveMe() {
   });
 
   start = now;
-  requestAnimationFrame(moveMe);
+  setTimeout(moveMe, 60);
 }
 
 
