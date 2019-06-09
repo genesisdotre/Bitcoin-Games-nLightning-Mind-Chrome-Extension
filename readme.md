@@ -1,16 +1,15 @@
+![](readme-images/cover-image.jpg)
 ![](readme-images/bitcoin-games-logo.png)
-# nlightning mind
 
-Chrome extension that is helping you focus.
+# nlightning mind ⚡️️️️⚡️⚡️
+
+Chrome extension that helps you focus.
 
 There are so many annoying websites and there are tools that block them. But what if you really need to do something on Instagram?
 
-Couple hundred satoshis per second, you can customise depending on your stack.
-
-I believe that flowing animation and ticking timer will stress you out and rewire your brain. It should be painful enough to build the habit of not visiting distracting websites.
+I believe that flowing animation and ticking timer will stress you enough and rewire your brain. It should be painful enough so that you build the habit of not visiting distracting websites.
 
 Ever since I’ve seen Andreas talk about Lightning Network and `sat` per second I thought it’s freaking revolutionary...
-
 
 # Demo
 
@@ -27,6 +26,8 @@ Ever since I’ve seen Andreas talk about Lightning Network and `sat` per second
 1. Node Launcher
 Lightning network is unfairly cheap. Now it is unfairly easy to run your own node:
 https://medium.com/lightning-power-users/windows-macos-lightning-network-284bd5034340
+
+*(this is requirement, without your node it will not fly)*
 
 2. `https://` OK, you need to visit that URL https://127.0.0.1:8081/v1/getinfo and accept
 
@@ -128,7 +129,8 @@ Normally I'd have to spend `0.1 BTC` per hour consulting services, because it wa
 * Caleb from Radar Tech
 * João from OpenNode
 * 閃電網絡工程師 大哥保羅 from LND Developer Slack
-* Image by [Gerd Altmann](https://pixabay.com/users/geralt-9301/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4062449) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=4062449)
+* Licensed image: https://pixabay.com/illustrations/cyber-artificial-intelligence-brain-4062449/
+* Another licensed image : https://www.flickr.com/photos/btckeychain/46239455144
 
 # Proof of Work
 Not that long time ago all my knowledge related to Lightning Network was *"it can scale, crypto magic"*. Now I know a little bit more.
