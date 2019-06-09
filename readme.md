@@ -18,6 +18,9 @@ Ever since I’ve seen Andreas talk about Lightning Network and `sat` per second
 
 [![](readme-images/youtube-thumbnail.jpg)](https://youtu.be/aiX317rw4SE)
 
+![](readme-images/invoice-payment-every-second.gif)
+
+**Caveat:** Even though I wanted to pay `sat` per second, sometimes it took a little bit longer and decided to settle for a micropayment every 5 seconds. 
 
 # Installation
 
