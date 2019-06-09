@@ -16,7 +16,7 @@ Ever since I’ve seen Andreas talk about Lightning Network and `sat` per second
 
 ### https://youtu.be/aiX317rw4SE
 
-[![](readme-images/youtube-thumbnail.png)](https://youtu.be/aiX317rw4SE)
+[![](readme-images/youtube-thumbnail.jpg)](https://youtu.be/aiX317rw4SE)
 
 
 # Installation
